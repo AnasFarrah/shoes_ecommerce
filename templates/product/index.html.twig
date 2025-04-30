@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ShoeStore - Nos Produits{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <!-- Filters Section -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Filtres</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Catégories</label>
+                                <select class="form-select">
+                                    <option value="">Toutes les catégories</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.nom }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Prix</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="number" class="form-control me-2" placeholder="Min">
+                                    <span>-</span>
+                                    <input type="number" class="form-control ms-2" placeholder="Max">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Taille</label>
+                                <select class="form-select">
+                                    <option value="">Toutes les tailles</option>
+                                    {% for size in 36..47 %}
+                                        <option value="{{ size }}">{{ size }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Couleur</label>
+                                <select class="form-select">
+                                    <option value="">Toutes les couleurs</option>
+                                    <option value="noir">Noir</option>
+                                    <option value="blanc">Blanc</option>
+                                    <option value="bleu">Bleu</option>
+                                    <option value="rouge">Rouge</option>
+                                    <option value="gris">Gris</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Appliquer les filtres</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="col-md-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Nos Produits</h2>
+                    <div class="d-flex align-items-center">
+                        <span class="me-2">Trier par:</span>
+                        <select class="form-select w-auto">
+                            <option value="price_asc">Prix croissant</option>
+                            <option value="price_desc">Prix décroissant</option>
+                            <option value="name_asc">Nom A-Z</option>
+                            <option value="name_desc">Nom Z-A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    {% for product in products %}
+                            <div class="col-md-4">
+                                <div class="card h-100">
+                                    <img src="{{ asset('images/chaussures/' ~ product.image) }}" class="card-img-top product-image" alt="{{ product.nom }}">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="card-title mb-0">{{ product.nom }}</h5>
+                                            <span class="badge bg-brown">{{ product.categorie.nom }}</span>
+                                        </div>
+                                        <p class="card-text">{{ product.description|slice(0, 100) }}...</p>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <span class="h5 mb-0">{{ product.prix }} €</span>
+                                            <div class="d-flex">
+                                                <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-outline-primary me-2">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <button class="btn btn-primary">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Précédent</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Suivant</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .bg-brown {
+            background-color: #8B4513;
+        }
+
+        .product-image {
+            height: 250px;
+            object-fit: cover;
+        }
+    </style>
+{% endblock %} 

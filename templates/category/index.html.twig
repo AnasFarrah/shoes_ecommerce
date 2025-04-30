@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ShoeStore - Catégories{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="mb-4">Nos Catégories</h1>
+        <div class="row g-4">
+            {% for category in categories %}
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shoe-prints fa-3x mb-3 text-brown"></i>
+                            <h3 class="card-title">{{ category.nom }}</h3>
+                            <p class="card-text">{{ category.description }}</p>
+                            <a href="{{ path('app_category_show', {'id': category.id}) }}" class="btn btn-primary">Voir les produits</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        Aucune catégorie n'est disponible pour le moment.
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .text-brown {
+            color: #8B4513;
+        }
+    </style>
+{% endblock %} 

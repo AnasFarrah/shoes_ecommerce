@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <h1 class="h3 mb-4 text-center">Inscription</h1>
+
+                    {{ form_start(registrationForm) }}
+                        <div class="mb-3">
+                            {{ form_row(registrationForm.email, {
+                                'attr': {'class': 'form-control'},
+                                'label': 'Email'
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(registrationForm.nom, {
+                                'attr': {'class': 'form-control'},
+                                'label': 'Nom'
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(registrationForm.prenom, {
+                                'attr': {'class': 'form-control'},
+                                'label': 'Prénom'
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(registrationForm.adresse, {
+                                'attr': {'class': 'form-control'},
+                                'label': 'Adresse'
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(registrationForm.telephone, {
+                                'attr': {'class': 'form-control'},
+                                'label': 'Téléphone'
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(registrationForm.plainPassword, {
+                                'attr': {'class': 'form-control'},
+                                'label': 'Mot de passe'
+                            }) }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+                    {{ form_end(registrationForm) }}
+
+                    <div class="text-center mt-3">
+                        <p>Déjà inscrit ? <a href="{{ path('app_login') }}" class="text-primary">Connectez-vous</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

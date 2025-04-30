@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ShoeStore - {{ category.nom }}{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('app_categories') }}">Catégories</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ category.nom }}</li>
+            </ol>
+        </nav>
+
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h1>{{ category.nom }}</h1>
+                <p class="lead">{{ category.description }}</p>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex justify-content-end align-items-center h-100">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Trier par
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                            <li><a class="dropdown-item" href="#">Prix croissant</a></li>
+                            <li><a class="dropdown-item" href="#">Prix décroissant</a></li>
+                            <li><a class="dropdown-item" href="#">Nom A-Z</a></li>
+                            <li><a class="dropdown-item" href="#">Nom Z-A</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for product in category.produits %}
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="{{ asset('images/chaussures/' ~ product.image) }}" class="card-img-top product-image" alt="{{ product.nom }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.nom }}</h5>
+                            <p class="card-text">{{ product.description|slice(0, 100) }}...</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 mb-0">{{ product.prix }} €</span>
+                                <div class="d-flex">
+                                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-outline-primary me-2">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        Aucun produit n'est disponible dans cette catégorie pour le moment.
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .product-image {
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+{% endblock %} 
